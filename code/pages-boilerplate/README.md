@@ -1,153 +1,279 @@
-# pages-boilerplate
+# 使用
 
-[![Build Status][travis-image]][travis-url]
-[![Package Version][version-image]][version-url]
-[![License][license-image]][license-url]
-[![Dependency Status][dependency-image]][dependency-url]
-[![devDependency Status][devdependency-image]][devdependency-url]
-[![Code Style][style-image]][style-url]
+1. 下载依赖
 
-> Always a pleasure scaffolding your awesome static sites.
+  `````
+  yarn install
+  `````
 
-## Getting Started
+2. 开发环境
 
-```shell
-# clone repo
-$ git clone https://github.com/zce/pages-boilerplate.git my-awesome-pages
-$ cd my-awesome-pages
-# install dependencies
-$ yarn # or npm install
-```
+   ``````
+   yarn develop
+   ``````
 
-## Usage
+3. 编译打包
 
-```shell
-$ yarn <task> [options]
-```
+   `````
+   yarn build
+   `````
 
-### e.g.
+# 流程
 
-```shell
-# Runs the app in development mode
-$ yarn serve --port 5210 --open
-# Builds the app for production to the `dist` folder
-$ yarn build --production
-```
+文档框架：
 
-### Available Scripts
+`````
+├── public ······························ 不需要被加工，最终要拷贝到文件夹目录中的内容
+│   ├── favicon.ico ····················· 站点图标
+├── temp ································ 开发临时文件
+├── dist ································ 最终打包文件
+├── src ································· 源文件
+│   ├── assets ·························· 编写样式
+│   └── layouts ························· 
+│   └── partials ························ .html文件，通过模板编写
+├── gulpfile.js ························· 构建文件
+`````
 
-#### `yarn lint` or `npm run lint`
+1. 安装项目所需依赖
 
-Lint the styles & scripts files.
+   `````
+   yarn add gulp-load-plugins --dev
+   yarn add gulp-sass --dev
+   yarn add gulp-babel @babel/core @babel/preset-env --dev
+   yarn add gulp-swig --dev
+   yarn add del --dev
+   yarn add gulp-useref --dev
+   yarn add gulp-htmlmin gulp-uglify gulp-clean-css --dev
+   yarn add gulp-if --dev
+   yarn add browser-sync --dev
+   `````
 
-#### `yarn compile` or `npm run compile`
+2. 在gulpfile.js中，构建任务需要有创建文件读取流-转换流-写入流这一过程，本项目，以下创建几个编译转换任务实现项目的自动化构建：
 
-Compile the styles & scripts & pages file.
+   - 样式编译任务
 
-#### `yarn serve` or `npm run serve`
+     `````javascript
+     const sass = require('gulp-sass')
+     
+     const style = () => {
+       return src('src/assets/styles/*.scss', {
+           base: 'src'
+         }) //创建文件读取流
+         .pipe(plugins.sass()) //转换流
+         .pipe(dest('temp')) //写入流
+         .pipe(bs.reload({
+           stream: true
+         }))
+       //bs.reload将内部流的信息推给浏览器
+     }
+     `````
 
-Runs the app in development mode with a automated server.
+   - 编译脚本文件
 
-##### options
+     ``````javascript
+     const babel = require('gulp-babel')
+     
+     const script = () => {
+       return src('src/assets/scripts/*.js', {
+           base: 'src'
+         })
+         .pipe(plugins.babel({
+           presets: ['@babel/preset-env']
+         }))
+         .pipe(dest('temp'))
+         .pipe(bs.reload({
+           stream: true
+         }))
+     }
+     ``````
 
-- `open`: Open browser on start, Default: `false`
-- `port`: Specify server port, Default: `2080`
+   - 编译html文件：1. 模板文件data 2.编译任务page
 
-#### `yarn build` or `npm run build`
+     ``````javascript
+     const data = {
+       menus: [{
+           name: 'Home',
+           icon: 'aperture',
+           link: 'index.html'
+         },
+         {
+           name: 'Features',
+           link: 'features.html'
+         },
+         {
+           name: 'About',
+           link: 'about.html'
+         },
+         {
+           name: 'Contact',
+           link: '#',
+           children: [{
+               name: 'Twitter',
+               link: 'https://twitter.com/w_zce'
+             },
+             {
+               name: 'About',
+               link: 'https://weibo.com/zceme'
+             },
+             {
+               name: 'divider'
+             },
+             {
+               name: 'About',
+               link: 'https://github.com/zce'
+             }
+           ]
+         }
+       ],
+       pkg: require('./package.json'),
+       date: new Date()
+     }
+     
+     const page = () => {
+       return src('src/*.html', {
+           base: 'src'
+         })
+         .pipe(plugins.swig({
+           data,
+           defaults: {
+             cache: false
+           }
+         }))
+         .pipe(dest('temp'))
+         .pipe(bs.reload({
+           stream: true
+         }))
+     }
+     ``````
 
-Builds the app for production to the `dist` folder. It minify source in production mode for the best performance.
+   - 图片 / 字体文件转换：上线之前编译，不用加到temp
 
-##### options
+     ``````javascript
+     const image = () => {
+       return src('src/assets/images/**', {
+           base: 'src'
+         })
+         .pipe(plugins.imagemin())
+         .pipe(dest('dist'))
+     }
+     
+     const font = () => {
+       return src('src/assets/fonts/**', {
+           base: 'src'
+         })
+         .pipe(plugins.imagemin())
+         .pipe(dest('dist'))
+     }
+     ``````
 
-- `production`: Production mode flag, Default: `false`
-- `prod`: Alias to `production`
+   - 其它文件转换，例如公共文件夹里的文件
 
-#### `yarn start` or `npm run start`
+     `````javascript
+     const extra = () => {
+       return src('public/**', {
+           base: 'public'
+         })
+         .pipe(dest('dist'))
+     }
+     `````
 
-Running projects in production mode.
+   - 文件清除
 
-##### options
+     ```````javascript
+     const {
+       series
+     } = require('gulp') //需要先删除dist文件，再去生成dist
+     const del = require('del')
+     
+     const clean = () => {
+       return del(['dist', 'temp']) //生成的临时文件
+     }
+     ```````
 
-- `open`: Open browser on start, Default: `false`
-- `port`: Specify server port, Default: `2080`
+   - useref插件处理html的构建注释
 
-#### `yarn deploy` or `npm run deploy`
+     ``````javascript
+     const useref = () => {
+       return src('temp/*.html', {
+           base: 'dist'
+         })
+         .pipe(plugins.useref({
+           searchPath: ['dist', '.']
+         }))
+         //html js css
+         .pipe(plugins.if(/\.js$/, plugins.uglify())) //先构建compile，再进行压缩
+         .pipe(plugins.if(/\.css$/, plugins.cleanCss()))
+         .pipe(plugins.if(/\.html$/, plugins.htmlmin({
+           collapseWhitespace: true,
+           minifyCSS: true,
+           minifyJS: true
+         })))
+         //只压缩默认空白字符,指定去压缩html里的空白符和换行符
+         .pipe(dest('dist')) //读写分离
+     }
+     ``````
 
-Deploy the `dist` folder to [GitHub Pages](https://pages.github.com).
+   - 开发服务器：Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等），并自动刷新页面
 
-##### options
+     ``````javascript
+     const browserSync = require('browser-sync')
+     const bs = browserSync.create() //自动创建一个开发服务器，单独定义到一个任务启动
+     
+     const serve = () => {
+       watch(['src/assets/images/**',
+         'src/assets/fonts/**',
+         'public/**'
+       ], bs.reload) //bs.reload是一个任务
+       watch('src/assets/scripts/*.js', script)
+       watch('src/*.html', page)
+       watch('src/assets/styles/*.scss', style) //监视样式文件、脚本等
+       bs.init({
+         notify: false, //提示
+         port: 2080,
+         // files: 'dist/**', //自动更新浏览器
+         server: {
+           baseDir: ['temp', 'src', 'public'],
+           routes: {
+             '/node_modules': 'node_modules'
+           }
+         }
+       })
+     }
+     ``````
 
-- `branch`: The name of the branch you'll be pushing to, Default: `'gh-pages'`
+   3. 将以上任务导出
 
-#### `yarn clean` or `npm run clean`
+      ``````javascript
+      const compile = parallel(style, script, page, image, font)
+      //上线之前执行的任务，最终构建的文件放到dist中
+      const build = series(clean, parallel(series(compile, useref), extra))
+      const develop = series(compile, serve)
+      module.exports = {
+        build,
+        develop,
+        clean
+      }
+      ``````
 
-Clean the `dist` & `temp` files.
-
-## Folder Structure
-
-```
-└── my-awesome-pages ································· project root
-   ├─ public ········································· static folder
-   │  └─ favicon.ico ································· static file (unprocessed)
-   ├─ src ············································ source folder
-   │  ├─ assets ······································ assets folder
-   │  │  ├─ fonts ···································· fonts folder
-   │  │  │  └─ pages.ttf ····························· font file (imagemin)
-   │  │  ├─ images ··································· images folder
-   │  │  │  └─ logo.png ······························ image file (imagemin)
-   │  │  ├─ scripts ·································· scripts folder
-   │  │  │  └─ main.js ······························· script file (babel / uglify)
-   │  │  └─ styles ··································· styles folder
-   │  │     ├─ _variables.scss ······················· partial sass file (dont output)
-   │  │     └─ main.scss ····························· entry scss file (scss / postcss)
-   │  ├─ layouts ····································· layouts folder
-   │  │  └─ basic.html ······························· layout file (dont output)
-   │  ├─ partials ···································· partials folder
-   │  │  └─ header.html ······························ partial file (dont output)
-   │  ├─ about.html ·································· page file (use layout & partials)
-   │  └─ index.html ·································· page file (use layout & partials)
-   ├─ .csscomb.json ·································· csscomb config file
-   ├─ .editorconfig ·································· editor config file
-   ├─ .gitignore ····································· git ignore file
-   ├─ .travis.yml ···································· travis ci config file
-   ├─ CHANGELOG.md ··································· repo changelog
-   ├─ LICENSE ········································ repo license
-   ├─ README.md ······································ repo readme
-   ├─ gulpfile.js ···································· gulp tasks file
-   ├─ package.json ··································· package file
-   └─ yarn.lock ······································ yarn lock file
-```
-
-## Related
-
-- [zce/x-pages](https://github.com/zce/x-pages) - A fully managed gulp workflow for static page sites.
-
-## Contributing
-
-1. **Fork** it on GitHub!
-2. **Clone** the fork to your own machine.
-3. **Checkout** your feature branch: `git checkout -b my-awesome-feature`
-4. **Commit** your changes to your own branch: `git commit -am 'Add some feature'`
-5. **Push** your work back up to your fork: `git push -u origin my-awesome-feature`
-6. Submit a **Pull Request** so that we can review your changes.
-
-> **NOTE**: Be sure to merge the latest from "upstream" before making a pull request!
-
-## License
-
-[MIT](LICENSE) &copy; [汪磊](https://zce.me)
+   4. 重新规划构建过程
+   
+   	`````json
+   //package.json
+   "scripts": {
+    "clean": "gulp clean",
+    "build": "gulp build",
+    "develop": "gulp develop",
+       },
+     `````
+     
+     ````
+     //.gitignore
+     
+     /temp
+     /dist
+     ````
+     
+     
 
 
 
-[travis-image]: https://img.shields.io/travis/zce/pages-boilerplate/master.svg
-[travis-url]: https://travis-ci.org/zce/pages-boilerplate
-[version-image]: https://img.shields.io/github/package-json/v/zce/pages-boilerplate/master.svg
-[version-url]: https://github.com/zce/pages-boilerplate
-[license-image]: https://img.shields.io/github/license/zce/pages-boilerplate.svg
-[license-url]: https://github.com/zce/pages-boilerplate/blob/master/LICENSE
-[dependency-image]: https://img.shields.io/david/zce/pages-boilerplate.svg
-[dependency-url]: https://david-dm.org/zce/pages-boilerplate
-[devdependency-image]: https://img.shields.io/david/dev/zce/pages-boilerplate.svg
-[devdependency-url]: https://david-dm.org/zce/pages-boilerplate?type=dev
-[style-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[style-url]: http://standardjs.com

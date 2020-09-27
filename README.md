@@ -1,14 +1,22 @@
-# 学
+
+
+# 面试记录
+
+[空手套题（一）-4399/六一/交易猫/网易/博智林/浩鲸云](https://github.com/janeLLLL/blog/issues/14)
+
+[空手套题（二）-小满/米哈游](https://github.com/janeLLLL/blog/issues/20)
+
+# 前端学习
 
 一、[函数式编程](https://github.com/janeLLLL/blog/issues/1)
 
-![函数式编程](%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B.png)
+![函数式编程](./image/函数式编程.png)
 
 二、JavaScript
 
 1. [JavaScript异步编程](https://github.com/janeLLLL/blog/issues/2)
 
-   ![JavaScript异步编程](JavaScript%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.png)
+   ![JavaScript异步编程](./image/JavaScript异步编程.png)
 
 2. [手写Promise](https://github.com/janeLLLL/blog/issues/3)
 
@@ -16,13 +24,13 @@
 
 4. [TypeScript语言](https://github.com/janeLLLL/blog/issues/5)（介绍、基础）
 
-   ![TypeScript](TypeScript.png)
+   ![TypeScript](./image/TypeScript.png)
 
    - [配置使用typescript : 全新项目 / 已有项目](https://github.com/janeLLLL/blog/issues/13)
 
 5. [JavaScript性能优化](https://github.com/janeLLLL/blog/issues/6)
 
-   ![JavaScript性能优化](JavaScript%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-1600061882858.png)
+   ![JavaScript性能优化](./image/JavaScript性能优化.png)
 
 6. 问题：[JavaScript的一些小问题-GC触发机制 / heap size的优化 / 组件化开发模式的优化](https://github.com/janeLLLL/blog/issues/12)
 
@@ -35,4 +43,3 @@
    - 使用Gulp完成项目的自动化构建
    - 以上三点详见./code
 
-待续。。。

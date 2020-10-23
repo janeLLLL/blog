@@ -1,5 +1,11 @@
 
 
+- 很老土，但是我仍旧需要一些“鸡汤”假装自己还可以被激励
+
+# 
+
+
+
 # 面试记录
 
 [空手套题（一）-4399/六一/交易猫/网易/博智林/浩鲸云](https://github.com/janeLLLL/blog/issues/14)
@@ -47,3 +53,20 @@
    - 使用Gulp完成项目的自动化构建
    - 以上三点详见./code
 
+四、Vue.js框架源码与进阶（但我仍需要补基础）
+
+1. [Vue-Router实现原理](https://github.com/janeLLLL/blog/issues/25)
+
+   ![Vue Router实现原理](./image/Vue Router实现原理.png)
+
+2. [Vue.js手写响应式实现](https://github.com/janeLLLL/blog/issues/26)
+
+   ![手写响应式实现](./image/手写响应式实现.png)
+
+3. [虚拟DOM库Snabbdom](https://github.com/janeLLLL/blog/issues/27)
+
+   - [网上传的最广的diff算法简述](https://github.com/janeLLLL/blog/issues/24)
+
+   （我还会总结一份diff算法流程图）
+
+   ![虚拟DOM库Snabbdom源码解析](./image/虚拟DOM库Snabbdom源码解析.png)

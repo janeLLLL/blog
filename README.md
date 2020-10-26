@@ -1,6 +1,4 @@
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
-
-web开发人员 | 学习者 | 影迷
+web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
 - 很老土，但是我仍旧需要一些“鸡汤”假装自己还可以被激励
 

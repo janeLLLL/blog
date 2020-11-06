@@ -13,7 +13,11 @@ web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/li
 
 [空手套题（一）-4399/六一/交易猫/网易/博智林/浩鲸云](https://github.com/janeLLLL/blog/issues/14)
 
-[空手套题（二）-小满/米哈游](https://github.com/janeLLLL/blog/issues/20)
+[空手套题（二）-小满/米哈游/建信金融/美团](https://github.com/janeLLLL/blog/issues/20)
+
+<hr>
+
+[别人的面试经验帖子](https://github.com/janeLLLL/blog/issues/23)
 
 > 米哈游面试官：你是工作一年吗？你是社招吧？你的基础为什么这么差？
 >
@@ -183,3 +187,17 @@ web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/li
    
    - [网上传的最广的diff算法简述](https://github.com/janeLLLL/blog/issues/24)
    
+
+# 工作难题
+
+- [elementUI源码修改步骤](https://github.com/janeLLLL/blog/issues/18)
+- [配置Windows Terminal右键打开](https://github.com/janeLLLL/blog/issues/11)
+
+# 储备知识
+
+- [前端自我检查清单](https://github.com/janeLLLL/blog/issues/28)
+
+- [浙大可视化学校总结](https://github.com/janeLLLL/blog/issues/17)
+- [关于Webpack的问答](https://github.com/janeLLLL/blog/issues/21)
+- [网上传的最广的diff算法简述](https://github.com/janeLLLL/blog/issues/24) 
+- [关于剩余参数...args和arguments](https://github.com/janeLLLL/blog/issues/19) 

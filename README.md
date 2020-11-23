@@ -5,7 +5,7 @@ web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/li
 # 目录
 
 - [**面试记录**](#面试记录)
-- [leecode题解](#leecode题解)
+- [**leecode题解**](#leecode题解)
 - [**学习记录**](#学习记录)
 - [**工作难题**](#工作难题)
 - [**储备知识**](#储备知识)
@@ -17,8 +17,11 @@ web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/li
 [空手套题（二）-小满/米哈游/建信金融/美团](https://github.com/janeLLLL/blog/issues/20)
 
 <hr>
+[[拉勾前端测试Part.1](https://github.com/janeLLLL/blog/issues/33)](https://github.com/janeLLLL/blog/issues/33)
 
+<hr>
 [别人的面试经验帖子](https://github.com/janeLLLL/blog/issues/23)
+
 
 > 米哈游面试官：你是工作一年吗？你是社招吧？你的基础为什么这么差？
 >
@@ -183,16 +186,25 @@ web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/li
 3. [虚拟DOM库Snabbdom](https://github.com/janeLLLL/blog/issues/27)
 
    - Snabbdom使用、作用、导入、核心
-- Snabbdom代码演示
+   - Snabbdom代码演示
      - h()
-  - VNode
-     - patch(oldVnode, newVnode )
-     - createElm
-     - patchVnode
-     - updateChildren
-  
+     - VNode
+       - patch(oldVnode, newVnode )
+       - createElm
+       - patchVnode
+       - updateChildren
+   
    - [网上传的最广的diff算法简述](https://github.com/janeLLLL/blog/issues/24)
-  
+
+<hr>
+
+4. Vue初始化：[简述 Vue 首次渲染的过程](https://github.com/janeLLLL/blog/issues/34)
+5. 响应式：[简述 Vue 响应式原理](https://github.com/janeLLLL/blog/issues/35)
+6. [虚拟DOM](https://github.com/janeLLLL/blog/issues/37)
+7. 模板编译：[简述 Vue 中模板编译的过程](https://github.com/janeLLLL/blog/issues/36)
+8. 组件化
+
+
 
 # 工作难题
 

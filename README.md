@@ -17,7 +17,7 @@ web开发人员 | 学习者 | 影迷 [![996.icu](https://img.shields.io/badge/li
 [空手套题（二）-小满/米哈游/建信金融/美团](https://github.com/janeLLLL/blog/issues/20)
 
 <hr>
-[[拉勾前端测试Part.1](https://github.com/janeLLLL/blog/issues/33)](https://github.com/janeLLLL/blog/issues/33)
+[拉勾前端测试Part.1](https://github.com/janeLLLL/blog/issues/33)
 
 <hr>
 [别人的面试经验帖子](https://github.com/janeLLLL/blog/issues/23)
